@@ -1,7 +1,40 @@
 ---
-title: "Analysis 1"
+title: "A Beautiful Graphic"
 author: "Avinesh Saravana"
 format: html
+execute:
+  echo: false
 ---
 Avinesh Saravana is a data maestro!
 
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+
+# Create a beautiful scatter plot using the built-in 'mpg' dataset
+ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.2) +
+  scale_color_brewer(palette = "Set2", name = "Drivetrain", 
+                     labels = c("4" = "4-Wheel", "f" = "Front-Wheel", "r" = "Rear-Wheel")) +
+  labs(
+    title = "Engine Displacement vs. Highway Fuel Efficiency",
+    subtitle = "Larger engines generally yield lower highway MPG",
+    x = "Engine Displacement (Liters)",
+    y = "Highway Miles per Gallon (MPG)",
+    caption = "Data Source: EPA (mpg dataset)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(color = "darkgray", margin = margin(b = 15)),
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()
+  )
+```
